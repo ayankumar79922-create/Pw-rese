@@ -4,31 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>PW-rese</title>
+  <title>PW-rese | Study & Batches</title>
 
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: #f4f7ff;
+      background: #f5f7ff;
       color: #111827;
     }
 
     header {
+      background: white;
+      padding: 20px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px;
-      background: white;
-      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
 
     .logo {
-      font-size: 25px;
+      font-size: 28px;
       font-weight: bold;
       color: red;
     }
@@ -36,19 +44,21 @@
     .menu {
       background: red;
       color: white;
-      padding: 12px 18px;
-      border-radius: 15px;
+      padding: 14px 25px;
+      border-radius: 25px;
+      text-decoration: none;
       font-weight: bold;
     }
 
     .hero {
       text-align: center;
-      padding: 70px 20px 90px;
-      background: linear-gradient(#eef3ff, #ffffff);
+      padding: 100px 20px;
+      background: #eef3ff;
     }
 
     .hero h1 {
-      font-size: 45px;
+      font-size: 48px;
+      line-height: 1.2;
       margin-bottom: 25px;
     }
 
@@ -57,85 +67,170 @@
     }
 
     .hero p {
-      font-size: 20px;
+      font-size: 21px;
       line-height: 1.7;
       color: #64748b;
+      max-width: 850px;
+      margin: auto;
     }
 
-  
     .button {
-  display: inline-block;
-  margin-top: 30px;
-  padding: 17px 40px;
-  background: red;
-  color: white;
-  border-radius: 30px;
-  font-size: 19px;
-  font-weight: bold;
-  text-decoration: none;
-}
+      display: inline-block;
+      margin-top: 35px;
+      padding: 17px 40px;
+      background: red;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 19px;
+      font-weight: bold;
+    }
 
     .about {
       text-align: center;
-      padding: 60px 20px;
+      padding: 80px 20px;
       background: white;
     }
 
-    .about h2 {
-      font-size: 35px;
+    .about h2,
+    .batches h2 {
       color: red;
+      font-size: 35px;
+      margin-bottom: 25px;
     }
 
     .about p {
-      max-width: 750px;
+      max-width: 850px;
       margin: auto;
       font-size: 19px;
-      line-height: 1.7;
+      line-height: 1.8;
       color: #64748b;
     }
 
-    .download {
+    /* BATCHES */
+
+    .batches {
+      padding: 80px 20px;
       text-align: center;
-      padding: 70px 20px;
-      background: #eef5ff;
+      background: #eef3ff;
     }
 
-    .download h2 {
-      font-size: 35px;
+    .search-box {
+      width: 90%;
+      max-width: 650px;
+      padding: 16px 20px;
+      border: 2px solid #ddd;
+      border-radius: 30px;
+      font-size: 17px;
+      outline: none;
+      margin-bottom: 40px;
     }
 
-    .download p {
-      font-size: 18px;
+    .search-box:focus {
+      border-color: red;
+    }
+
+    .batch-grid {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 25px;
+    }
+
+    .batch-card {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      text-align: left;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: 0.2s;
+    }
+
+    .batch-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .batch-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .batch-card p {
       color: #64748b;
       line-height: 1.6;
+      margin-bottom: 20px;
     }
 
-    .download-box {
-      max-width: 600px;
-      margin: 35px auto;
-      padding: 25px;
-      background: #111827;
-      border-radius: 20px;
+    .batch-tag {
+      display: inline-block;
+      background: #e8fff0;
+      color: #0a9f45;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .batch-card a {
+      display: inline-block;
+      background: red;
       color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
     }
 
-    .download-box h3 {
-      margin: 0 0 10px;
-      font-size: 22px;
+    .no-result {
+      display: none;
+      margin-top: 30px;
+      color: #64748b;
+      font-size: 18px;
     }
 
-    .download-box p {
-      color: #d1d5db;
+    footer {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
     }
 
     @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 36px;
+
+      header {
+        padding: 15px;
       }
 
-      .download h2,
-      .about h2 {
-        font-size: 29px;
+      .logo {
+        font-size: 23px;
+      }
+
+      .menu {
+        padding: 11px 15px;
+        font-size: 14px;
+      }
+
+      .hero {
+        padding: 70px 15px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .about h2,
+      .batches h2 {
+        font-size: 30px;
+      }
+
+      .batch-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -143,34 +238,51 @@
 
 <body>
 
+  <!-- HEADER -->
+
   <header>
-    <div class="logo">PW-rese</div>
-    <a href="#batches" class="menu">Study / Batches</a>
+
+    <div class="logo">
+      PW-rese
+    </div>
+
+    <a href="#batches" class="menu">
+      Study / Batches
+    </a>
+
   </header>
+
+
+  <!-- HERO -->
 
   <section class="hero">
 
     <h1>
-      <span class="red">PW-rese</span>:
-      We Make Education <span class="red">Affordable.</span>
+      <span class="red">PW-rese:</span>
+      We Make Education
+      <span class="red">Affordable.</span>
     </h1>
 
     <p>
       Welcome to <b>PW-rese</b>.<br>
-      Access study resources, courses, batches and educational
-      materials in one place.
+      Access study resources, courses, batches and
+      educational materials in one place.
     </p>
 
     <a href="#batches" class="button">
-    Start Learning Now
-</a>
+      Start Learning Now
     </a>
 
   </section>
 
+
+  <!-- ABOUT -->
+
   <section class="about">
 
-    <h2>About PW-rese</h2>
+    <h2>
+      About PW-rese
+    </h2>
 
     <p>
       PW-rese is an educational platform for students.
@@ -180,32 +292,418 @@
 
   </section>
 
-  <section class="download">
+
+  <!-- BATCHES -->
+
+  <section id="batches" class="batches">
 
     <h2>
-      Download The <span class="red">PW-rese</span> App
+      PW Batches
     </h2>
 
-    <p>
-      Take your study materials anywhere.<br>
-      Access videos, batches and study resources easily.
+    <p style="color:#64748b; margin-bottom:25px;">
+      Search for your exam, class or batch
     </p>
 
-    <div class="download-box">
+    <input
+      type="text"
+      id="batchSearch"
+      class="search-box"
+      placeholder="🔎 Search Batches..."
+      onkeyup="searchBatches()"
+    >
 
-      <h3>📱 Android App</h3>
 
-      <p>
-        Download the PW-rese app on your Android device.
-      </p>
+    <div class="batch-grid">
 
-      <a href="YOUR-APK-LINK-HERE" class="button">
-        ⬇️ Download App
-      </a>
+
+      <!-- JEE -->
+
+      <div class="batch-card">
+
+        <span class="batch-tag">
+          JEE
+        </span>
+
+        <h3>
+          JEE Batches
+        </h3>
+
+        <p>
+          JEE Main और Advanced की तैयारी के लिए
+          available batches देखें।
+        </p>
+
+        <a
+          href="https://www.pw.live/iit-jee/batches"
+          target="_blank">
+          View Batches
+        </a>
+
+      </div>
+
+
+      <!-- NEET -->
+
+      <div class="batch-card">
+
+        <span class="batch-tag">
+          NEET
+        </span>
+
+        <h3>
+          NEET Batches
+        </h3>
+
+        <p>
+          NEET की तैयारी के लिए available
+          batches देखें।
+        </p>
+
+        <a
+          href="https://www.pw.live/neet/batches"
+          target="_blank">
+          View Batches
+        </a>
+
+      </div>
+
+
+      <!-- CBSE -->
+
+      <div class="batch-card">
+
+        <span class="batch-tag">
+          CBSE
+        </span>
+
+        <h3>
+          CBSE Batches
+        </h3>
+
+        <p>
+          CBSE Class 9 से 12 तक के study
+          batches देखें।
+        </p>
+
+        <a
+          href="https://www.pw.live/cbse/batches"
+          target="_blank">
+          View Batches
+        </a>
+
+      </div>
+
+
+      <!-- SSC -->
+
+      <div class="batch-card">
+
+        <span class="batch-tag">
+          SSC
+        </span>
+
+        <h3>
+          SSC Batches
+        </h3>
+
+        <p>
+          SSC CGL, CHSL, MTS और अन्य
+          exams के batches देखें।
+        </p>
+
+        <a
+          href="https://www.pw.live/ssc/batches"
+          target="_blank">
+          View Batches
+        </a>
+
+      </div>
+
+
+      <!-- BANKING -->
+
+      <div class="batch-card">
+
+        <span class="batch-tag">
+          BANKING
+        </span>
+
+        <h3>
+          Banking Batches
+        </h3>
+
+        <p>
+          Banking exams की तैयारी के लिए
+          available batches देखें।
+        </p>
+
+        <a
+          href="https://www.pw.live/banking/batches"
+          target="_blank">
+          View Batches
+        </a>
+
+      </div>
+
+
+      <!-- DEFENCE -->
+
+      <div class="batch-card">
+
+        <span class="batch-tag">
+          DEFENCE
+        </span>
+
+        <h3>
+          Defence Batches
+        </h3>
+
+        <p>
+          NDA, CDS, AFCAT और Defence exams
+          के batches देखें।
+        </p>
+
+        <a
+          href="https://www.pw.live/defence/batches"
+          target="_blank">
+          View Batches
+        </a>
+
+      </div>
+
+
+      <!-- BIHAR BOARD -->
+
+      <div class="batch-card">
+
+        <span class="batch-tag">
+          BIHAR BOARD
+        </span>
+
+        <h3>
+          Bihar Board Batches
+        </h3>
+
+        <p>
+          Bihar Board students के लिए
+          available batches देखें।
+        </p>
+
+        <a
+          href="https://www.pw.live/bihar-board/batches"
+          target="_blank">
+          View Batches
+        </a>
+
+      </div>
+
+
+      <!-- UP BOARD -->
+
+      <div class="batch-card">
+
+        <span class="batch-tag">
+          UP BOARD
+        </span>
+
+        <h3>
+          UP Board Batches
+        </h3>
+
+        <p>
+          UP Board students के लिए
+          available batches देखें।
+        </p>
+
+        <a
+          href="https://www.pw.live/up-board/batches"
+          target="_blank">
+          View Batches
+        </a>
+
+      </div>
+
+
+      <!-- UPSC -->
+
+      <div class="batch-card">
+
+        <span class="batch-tag">
+          UPSC
+        </span>
+
+        <h3>
+          UPSC Batches
+        </h3>
+
+        <p>
+          UPSC Civil Services preparation
+          के batches देखें।
+        </p>
+
+        <a
+          href="https://www.pw.live/upsc/batches"
+          target="_blank">
+          View Batches
+        </a>
+
+      </div>
+
+
+      <!-- AGRICULTURE -->
+
+      <div class="batch-card">
+
+        <span class="batch-tag">
+          AGRICULTURE
+        </span>
+
+        <h3>
+          Agriculture Batches
+        </h3>
+
+        <p>
+          Agriculture exams की तैयारी के लिए
+          batches देखें।
+        </p>
+
+        <a
+          href="https://www.pw.live/agriculture/batches"
+          target="_blank">
+          View Batches
+        </a>
+
+      </div>
+
+
+      <!-- MBA -->
+
+      <div class="batch-card">
+
+        <span class="batch-tag">
+          MBA
+        </span>
+
+        <h3>
+          CAT / MBA Batches
+        </h3>
+
+        <p>
+          CAT और MBA entrance preparation
+          के batches देखें।
+        </p>
+
+        <a
+          href="https://www.pw.live/mba/batches"
+          target="_blank">
+          View Batches
+        </a>
+
+      </div>
+
+
+      <!-- COMMERCE -->
+
+      <div class="batch-card">
+
+        <span class="batch-tag">
+          COMMERCE
+        </span>
+
+        <h3>
+          Commerce Batches
+        </h3>
+
+        <p>
+          Commerce students के लिए available
+          courses और batches देखें।
+        </p>
+
+        <a
+          href="https://www.pw.live/commerce/batches"
+          target="_blank">
+          View Batches
+        </a>
+
+      </div>
+
 
     </div>
 
+
+    <div id="noResult" class="no-result">
+      कोई batch नहीं मिला।
+    </div>
+
   </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <p>
+      © 2026 PW-rese | Study & Learning Platform
+    </p>
+
+  </footer>
+
+
+  <!-- SEARCH SCRIPT -->
+
+  <script>
+
+    function searchBatches() {
+
+      let input =
+        document
+        .getElementById("batchSearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+      let cards =
+        document.querySelectorAll(".batch-card");
+
+      let found = 0;
+
+      cards.forEach(function(card) {
+
+        let text =
+          card.innerText.toLowerCase();
+
+        if (text.includes(input)) {
+
+          card.style.display = "block";
+          found++;
+
+        } else {
+
+          card.style.display = "none";
+
+        }
+
+      });
+
+
+      let noResult =
+        document.getElementById("noResult");
+
+
+      if (found === 0) {
+
+        noResult.style.display = "block";
+
+      } else {
+
+        noResult.style.display = "none";
+
+      }
+
+    }
+
+  </script>
 
 </body>
 </html>
