@@ -1,0 +1,22 @@
+ {
+  "batches": [
+    {
+      "id": 1,
+      "name": "JEE Foundation",
+      "exam": "JEE",
+      "type": "Free"
+    },
+    {
+      "id": 2,
+      "name": "NEET Foundation",
+      "exam": "NEET",
+      "type": "Free"
+    },
+    {
+      "id": 3,
+      "name": "Class 10 Study",
+      "exam": "CBSE",
+      "type": "Free"
+    }
+  ]
+}
