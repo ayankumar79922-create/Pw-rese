@@ -704,6 +704,21 @@
     }
 
   </script>
+<script>
+async function loadBatches() {
+  try {
+    const response = await fetch("batches.json");
+    const data = await response.json();
 
+    console.log("Batches loaded:", data.batches);
+
+    // यहाँ बाद में batches को वेबसाइट पर दिखाएँगे
+  } catch (error) {
+    console.error("Batches load नहीं हुए:", error);
+  }
+}
+
+loadBatches();
+</script>
 </body>
 </html>
